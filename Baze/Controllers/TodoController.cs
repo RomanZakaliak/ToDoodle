@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Baze.Services;
 using Baze.Models;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Baze.Controllers
 {
@@ -27,6 +29,23 @@ namespace Baze.Controllers
             };
 
             return View(model);
+        }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddItem(TodoItem newItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var successful = await _todoItemService.AddItemAsync(newItem);
+            if(!successful)
+            {
+                return BadRequest("Could not add new item!");
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

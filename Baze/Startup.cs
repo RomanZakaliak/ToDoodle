@@ -37,7 +37,7 @@ namespace Baze
             services.AddRazorPages();
             services.AddMvc();
 
-            services.AddSingleton<ITodoItemService, FakeTodoItemService>();
+            services.AddScoped<ITodoItemService, TodoItemsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
