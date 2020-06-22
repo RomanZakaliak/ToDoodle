@@ -8,6 +8,8 @@ using Baze.Models;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Net.WebSockets;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Baze.Controllers
 {
@@ -43,6 +45,23 @@ namespace Baze.Controllers
             if(!successful)
             {
                 return BadRequest("Could not add new item!");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkDone(Guid id)
+        {
+            if(id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var successful = await _todoItemService.MarkDoneAsync(id);
+            if (!successful)
+            {
+                return BadRequest("Could not mark item as done.");
             }
 
             return RedirectToAction("Index");
