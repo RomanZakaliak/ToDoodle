@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Baze.Data;
 using Baze.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Baze.Services
@@ -19,17 +17,16 @@ namespace Baze.Services
             _context = context;
         }
 
-        public async Task<TodoItem[]> GetIncompleteItemsAsync(IdentityUser user)
+        public async Task<TodoItem[]> GetIncompleteItemsAsync()
         {
-            return await _context.Items.Where(x => x.IsDone == false && x.UserId == user.Id).ToArrayAsync();
+            return await _context.Items.Where(x => x.IsDone == false).ToArrayAsync();
         }
 
-        public async Task<bool> AddItemAsync(TodoItem newItem, IdentityUser user)
+        public async Task<bool> AddItemAsync(TodoItem newItem)
         {
             newItem.ID = Guid.NewGuid();
             newItem.IsDone = false;
             newItem.DueAt = DateTimeOffset.Now.AddDays(3);
-            newItem.UserId = user.Id;
 
             _context.Items.Add(newItem);
 
@@ -37,9 +34,9 @@ namespace Baze.Services
             return saveResult == 1;
         }
 
-        public async Task<bool> MarkDoneAsync(Guid id, IdentityUser user)
+        public async Task<bool> MarkDoneAsync(Guid id)
         {
-            var item = await _context.Items.Where(x => x.ID == id && x.UserId == user.Id).SingleOrDefaultAsync();
+            var item = await _context.Items.Where(x => x.ID == id).SingleOrDefaultAsync();
 
             if (item == null) return false;
 
