@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
-namespace Baze.Hubs
+namespace Todo.Hubs
 {
     public class ChatHub : Hub
     {

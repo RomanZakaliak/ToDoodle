@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Baze.Data.Migrations
+namespace Todo.Data.Migrations
 {
     public partial class AddItems : Migration
     {

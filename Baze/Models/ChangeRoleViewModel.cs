@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Baze.Models
+namespace Todo.Models
 {
     public class ChangeRoleViewModel
     {

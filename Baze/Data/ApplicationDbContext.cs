@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Baze.Models;
+using Todo.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Baze.Data
+namespace Todo.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

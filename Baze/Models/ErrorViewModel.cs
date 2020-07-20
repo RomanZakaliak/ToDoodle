@@ -1,6 +1,6 @@
 using System;
 
-namespace Baze.Models
+namespace Todo.Models
 {
     public class ErrorViewModel
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Baze.Data.Migrations
+namespace Todo.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Baze.Services;
-using Baze.Models;
+using Todo.Services;
+using Todo.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
-namespace Baze.Controllers
+namespace Todo.Controllers
 {
     [Authorize]
     public class TodoController : Controller

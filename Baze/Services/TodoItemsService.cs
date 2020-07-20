@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Baze.Data;
-using Baze.Models;
+using Todo.Data;
+using Todo.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Baze.Services
+namespace Todo.Services
 {
     public class TodoItemsService : ITodoItemService
     {
@@ -26,7 +26,6 @@ namespace Baze.Services
         {
             newItem.ID = Guid.NewGuid();
             newItem.IsDone = false;
-            newItem.DueAt = DateTimeOffset.Now.AddDays(3);
             newItem.UserId = user.Id;
 
             _context.Items.Add(newItem);

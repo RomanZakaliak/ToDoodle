@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Baze.Models;
+using Todo.Models;
 
-namespace Baze.Models
+namespace Todo.Models
 {
     public class ApplicationUser : IdentityUser
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Baze.Models;
+using Todo.Models;
 
-namespace Baze.Services
+namespace Todo.Services
 {
     public interface ITodoItemService
     {

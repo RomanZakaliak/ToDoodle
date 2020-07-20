@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Baze.Models;
+using Todo.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Baze.Controllers
+namespace Todo.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RoleController : Controller

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Baze.Models
+namespace Todo.Models
 {
     public class TodoItem
     {
@@ -14,7 +14,7 @@ namespace Baze.Models
 
         [Required]
         public string Title { get; set; }
-
+        [Required]
         public DateTimeOffset? DueAt { get; set; }
 
         public string UserId { get; set; }
