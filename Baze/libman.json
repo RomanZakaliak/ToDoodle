@@ -9,5 +9,91 @@
         "dist/browser/signalr.min.js.map"
       ]
     }
+  ,
+{
+  "library": "jquery-datetimepicker@2.5.21",
+  "destination": "wwwroot/jquery-datetimepicker/"
+}
+,
+{
+  "library": "jquery-datetimepicker@2.5.21",
+  "destination": "wwwroot/jquery-datetimepicker/"
+}
+,
+{
+  "library": "jquery-datetimepicker@2.5.21",
+  "destination": "wwwroot/jquery-datetimepicker/jquery-datetimepicker/",
+  "files": [
+    "screen/1.png",
+    "screen/2.png",
+    "screen/3.1.png",
+    "screen/3.png",
+    "screen/4.png",
+    "screen/5.png",
+    "screen/6.png"
   ]
+}
+,
+{
+  "library": "jquery-datetimepicker@2.5.21",
+  "destination": "wwwroot/jquery-datetimepicker/",
+  "files": [
+    "build/jquery.datetimepicker.full.js",
+    "build/jquery.datetimepicker.full.min.js",
+    "build/jquery.datetimepicker.min.css",
+    "build/jquery.datetimepicker.min.js",
+    "jquery.datetimepicker.js",
+    "jquery.datetimepicker.css"
+  ]
+}
+,
+{
+  "library": "jquery-datetimepicker@2.5.21",
+  "destination": "wwwroot/jquery-datetimepicker/",
+  "files": [
+    "jquery.datetimepicker.css",
+    "jquery.datetimepicker.js",
+    "screen/1.png",
+    "index.html",
+    "screen/2.png",
+    "screen/3.1.png",
+    "screen/3.png",
+    "screen/4.png",
+    "screen/5.png",
+    "screen/6.png"
+  ]
+}
+,
+{
+  "library": "jquery-datetimepicker@2.5.21",
+  "destination": "wwwroot/jquery-datetimepicker/",
+  "files": [
+    ".travis.yml",
+    "bower.json",
+    "datetimepicker.jquery.json",
+    "doc.tpl",
+    "index.html",
+    "jquery.datetimepicker.css",
+    "jquery.datetimepicker.js",
+    "jquery.js",
+    "karma.conf.js",
+    "screen/1.png",
+    "screen/2.png",
+    "screen/3.1.png",
+    "screen/3.png",
+    "screen/4.png",
+    "screen/5.png",
+    "screen/6.png"
+  ]
+}
+,
+{
+  "library": "jquery-datetimepicker@2.5.21",
+  "destination": "wwwroot/jquery-datetimepicker/",
+  "files": [
+    "build/jquery.datetimepicker.full.min.js",
+    "jquery.datetimepicker.css"
+  ]
+}
+]
 }
