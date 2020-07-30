@@ -1,5 +1,9 @@
 ﻿@model Todo.ViewModels.RegisterViewModel
 
+@{
+    ViewData["Title"] = "Register Page";
+}
+
 <h2>New user registration!</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
