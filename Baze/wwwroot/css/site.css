@@ -24,6 +24,12 @@ a {
   border-color: #1861ac;
 }
 
+.sign-block {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 50vw;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
