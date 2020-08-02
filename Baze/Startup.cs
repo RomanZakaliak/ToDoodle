@@ -35,6 +35,12 @@ namespace Todo
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Account/Login/";
+                options.LogoutPath = $"/Account/LogOff";
+                options.AccessDeniedPath = $"/Account/Login";
+            });
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();

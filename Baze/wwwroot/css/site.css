@@ -26,8 +26,7 @@ a {
 
 .sign-block {
     margin: 0 auto;
-    width: 100%;
-    max-width: 50vw;
+    width: 50%;
 }
 
 /* Sticky footer styles
@@ -35,9 +34,12 @@ a {
 html {
   font-size: 14px;
 }
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   html {
     font-size: 16px;
+  }
+  .sign-block{
+      width: 100%;
   }
 }
 
