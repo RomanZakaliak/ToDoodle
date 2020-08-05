@@ -39,7 +39,7 @@ namespace Todo
             {
                 options.LoginPath = $"/Account/Login/";
                 options.LogoutPath = $"/Account/LogOff";
-                options.AccessDeniedPath = $"/Account/Login";
+                options.AccessDeniedPath = $"/Home/AccessDenied";
             });
             services.AddControllersWithViews();
             services.AddRazorPages();

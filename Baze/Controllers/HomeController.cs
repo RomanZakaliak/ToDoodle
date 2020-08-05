@@ -24,6 +24,8 @@ namespace Todo.Controllers
             return View();
         }
 
+        public IActionResult AccessDenied() => View();
+
         public IActionResult Privacy()
         {
             return View();
