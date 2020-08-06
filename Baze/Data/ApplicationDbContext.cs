@@ -4,6 +4,8 @@ using System.Text;
 using Todo.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 
 namespace Todo.Data
 {
@@ -15,6 +17,6 @@ namespace Todo.Data
         }
 
         public DbSet<TodoItem> Items { get; set; }
-        public DbSet<ApplicationUser> applicationUsers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

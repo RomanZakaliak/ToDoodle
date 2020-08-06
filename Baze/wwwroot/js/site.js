@@ -13,3 +13,13 @@ function markComplete(checkbox) {
     var form = checkbox.closest('form');
     form.submit();
 }
+
+$(document).ready(function () {
+    $('#message').keypress(function (event) {
+        if (event.keyCode === 13 && !event.shiftKey) {
+            event.preventDefault();
+            $('#sendBtn').trigger('click');
+            return true;
+        }
+    });
+});
