@@ -5,27 +5,39 @@
 }
 <div class="sign-block">
     <h2>New user registration!</h2>
-    <div class="container">
-        <form method="post" asp-controller="Account" asp-action="Register">
-            <div asp-validation-summary="ModelOnly"></div>
-            <div class="form-group col-sm-auto row">
-                <label asp-for="Email"></label><br />
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email"></span>
-            </div>
-            <div class="form-group col-sm-auto row">
-                <label asp-for="Password"></label><br />
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password"></span>
-            </div>
-            <div class="form-group col-sm-auto row">
-                <label asp-for="ConfirmPassword"></label><br />
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword"></span>
-            </div>
-            <div>
-                <input type="submit" value="Register" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    <form method="post" asp-controller="Account" asp-action="Register">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group col-sm-auto row">
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group col-sm-auto row">
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div class="form-group col-sm-auto row">
+            <label asp-for="ConfirmPassword"></label><br />
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword"></span>
+        </div>
+        <div>
+            <input type="submit" value="Register" class="btn btn-primary" />
+        </div>
+    </form>
 </div>
+@await Html.PartialAsync("_Modal")
+@section Scripts{
+    <script>
+        $(function () {
+            if ('@ViewBag.PopupData' != "") {
+                $("#modal-action-id").modal('show');
+            }
+
+            $("#modal-action-id").on("hide.bs.modal", function () {
+                window.location.href = '@Url.Content("~/Home/Index/")';
+            });
+        });
+    </script>
+ }
