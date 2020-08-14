@@ -1,6 +1,16 @@
 ﻿$(document).ready(function () {
-    $('.done-checkbox').on('click', function (e){
-        markComplete(e.target);
+    $('.done-checkbox').on('click', function (e) {
+        $("#partial").text("Mark this item as done?");
+
+        $("#confirm-modal").modal('show');
+
+        $("#btn-confirm").on('click', function () {
+            markComplete(e.target);
+        });
+
+        $("#confirm-modal").on("hide.bs.modal", function () {
+            $(".done-checkbox").prop('checked', false);
+        });
     });
 });
 
@@ -13,6 +23,7 @@ function markComplete(checkbox) {
     var form = checkbox.closest('form');
     form.submit();
 }
+
 
 $(document).ready(function () {
     $('#message').keypress(function (event) {
