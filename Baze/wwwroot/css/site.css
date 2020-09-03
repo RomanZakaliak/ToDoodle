@@ -14,7 +14,7 @@ a {
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: none;
   border-color: #1861ac;
 }
 
@@ -86,3 +86,46 @@ table tr.done{
     text-decoration: line-through;
     color: #888;
 }
+
+.btn-neom {
+    left: 10px;
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+}
+
+/*Neomorfic button*/
+    .btn-neom:hover {
+        box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9, 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+    }
+
+    .btn-neom:before,
+    .btn-neom:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 2px;
+        width: 0;
+        box-shadow: -7px -7px 20px 0px #fff, -4px -4px 5px 0px #fff, 7px 7px 20px 0px #0003, 4px 4px 5px 0px #0002;
+        transition: 400ms ease all;
+    }
+
+    .btn-neom:after {
+        right: inherit;
+        top: inherit;
+        left: 0;
+        bottom: 0;
+    }
+
+    .btn-neom:hover:before,
+    .btn-neom:hover:after {
+        width: 100%;
+        transition: 800ms ease all;
+    }
+
+    .must-show{
+        z-index: 9999 !important;
+    }

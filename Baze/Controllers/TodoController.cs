@@ -38,8 +38,25 @@ namespace Todo.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> _AddEditItem(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return View();
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+
+            var item = await _todoItemService.GetItemAsync(currentUser, id);
+
+            return View(item);
+
+        }
+
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddItem(TodoItem newItem)
+        public async Task<IActionResult> AddEditItem(TodoItem Item)
         {
             if (!ModelState.IsValid)
             {
@@ -49,15 +66,28 @@ namespace Todo.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            var successful = await _todoItemService.AddItemAsync(newItem, currentUser);
+            var existedItem = await _todoItemService.GetItemAsync(currentUser, Item.ID);
+
+            bool successful = false;
+            if (existedItem != null)
+            {
+                existedItem.Title = Item.Title;
+                existedItem.DueAt = Item.DueAt;
+                successful = await _todoItemService.UpdateItemAsync(existedItem);
+            }
+            else
+            {
+                successful = await _todoItemService.AddItemAsync(Item, currentUser);
+            }
             if(!successful)
             {
-                return BadRequest("Could not add new item!");
+                return BadRequest("Could not add/edit item!");
             }
 
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> MarkDone(Guid id)
         {

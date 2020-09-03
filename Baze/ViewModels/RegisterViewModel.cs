@@ -18,6 +18,5 @@ namespace Todo.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
-
     }
 }

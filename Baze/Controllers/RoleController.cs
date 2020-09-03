@@ -12,8 +12,8 @@ namespace Todo.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
-        RoleManager<IdentityRole> _roleManager;
-        UserManager<ApplicationUser> _userManager;
+        readonly RoleManager<IdentityRole> _roleManager;
+        readonly UserManager<ApplicationUser> _userManager;
 
         public RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {

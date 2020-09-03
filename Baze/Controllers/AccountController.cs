@@ -50,7 +50,8 @@ namespace Todo.Controllers
                     await emailService.SendEmailAsync(regModel.Email, "Confirm your account",
                         $"Confirm your registration <a href='{callbackUrl}'>HERE</a>");
 
-                    return Content("Check your email! Account approvement link must be there!");
+                    ViewBag.PopupData = $"Email has been sent to {regModel.Email}.";
+                    return View();
                 }
                 else
                 {
