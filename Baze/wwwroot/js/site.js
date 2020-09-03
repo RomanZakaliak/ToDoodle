@@ -24,7 +24,6 @@ function markComplete(checkbox) {
     form.submit();
 }
 
-
 $(document).ready(function () {
     $('#message').keypress(function (event) {
         if (event.keyCode === 13 && !event.shiftKey) {

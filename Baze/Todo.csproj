@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\jquery-datetimepicker\jquery.datetimepicker.full.min.js" />
   </ItemGroup>
 
   <ItemGroup>

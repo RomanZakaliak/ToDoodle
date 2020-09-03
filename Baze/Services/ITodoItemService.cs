@@ -10,8 +10,12 @@ namespace Todo.Services
     {
         Task<TodoItem[]> GetIncompleteItemsAsync(ApplicationUser user);
 
+        Task<TodoItem> GetItemAsync(ApplicationUser user, Guid id);
+
         Task<bool> AddItemAsync(TodoItem newItem, ApplicationUser user);
 
         Task<bool> MarkDoneAsync(Guid id, ApplicationUser user);
+
+        Task<bool> UpdateItemAsync(TodoItem item);
     }
 }
