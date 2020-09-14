@@ -61,5 +61,13 @@ namespace Todo.Services
 
             return saveResult == 1;
         }
+
+        public async Task<bool> DeleteItemAsync(TodoItem item)
+        {
+            _context.Items.Remove(item);
+            var result = await _context.SaveChangesAsync();
+
+            return result == 1;
+        }
     }
 }

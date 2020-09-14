@@ -89,6 +89,33 @@ namespace Todo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteItem(Guid id)
+        {
+            if(id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+
+            var existedItem = await _todoItemService.GetItemAsync(currentUser, id);
+            
+            if(existedItem != null)
+            {
+                if (await _todoItemService.DeleteItemAsync(existedItem))
+                    return RedirectToAction("Index");
+                else
+                    return BadRequest("Cannot delete selected item");
+            }
+            else
+            {
+                return BadRequest("Item does not exist!");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MarkDone(Guid id)
         {
             if(id == Guid.Empty)

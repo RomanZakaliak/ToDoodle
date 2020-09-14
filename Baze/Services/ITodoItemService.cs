@@ -17,5 +17,7 @@ namespace Todo.Services
         Task<bool> MarkDoneAsync(Guid id, ApplicationUser user);
 
         Task<bool> UpdateItemAsync(TodoItem item);
+
+        Task<bool> DeleteItemAsync(TodoItem item);
     }
 }
