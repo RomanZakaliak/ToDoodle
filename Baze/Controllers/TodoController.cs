@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Todo.Services;
 using Todo.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Todo.Services.Interfaces;
+using Todo.ViewModels;
 
 namespace Todo.Controllers
 {
@@ -24,7 +25,6 @@ namespace Todo.Controllers
         }
         public async Task<IActionResult> Index()
         {
-
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
@@ -79,6 +79,7 @@ namespace Todo.Controllers
             {
                 successful = await _todoItemService.AddItemAsync(Item, currentUser);
             }
+
             if(!successful)
             {
                 return BadRequest("Could not add/edit item!");

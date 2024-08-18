@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Todo.Models
+namespace Todo.ViewModels
 {
     public class ChangeRoleViewModel
     {

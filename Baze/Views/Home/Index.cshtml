@@ -2,7 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="container">
+@using Todo.ViewModels
+@model HomeViewModel
+
+    <div class="container messanger-container">
         <form class="form-group">
             <div id="inputForm" class="form-group">
                 <textarea id="message" class="form-control col-sm-6"></textarea>
@@ -14,9 +17,12 @@
             <div id="chatroom" class="list-group">
             </div>
         </div>
-        <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+        <script src="~/lib/microsoft-signalr/signalr.min.js"></script>
         <script>
-            const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+            const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat", {
+                skipNegotiation: true,
+                transport: signalR.HttpTransportType.WebSockets
+            }).build();
 
             hubConnection.on("Send", function (data) {
                 createMessageNode(data);
@@ -34,12 +40,18 @@
                 document.getElementById("chatroom").insertBefore(elem, firstElem);
             }
 
-            document.getElementById("sendBtn").addEventListener("click", function (e) {
-                let message = document.getElementById("message").value;
-                hubConnection.invoke("Send", message);
-                $('#message').val('');
-            });
+            if (@Model.IsAuthorized.ToString().ToLower()) {
+                document.getElementById("sendBtn").addEventListener("click", function (e) {
+                    let message = document.getElementById("message").value;
+                    hubConnection.invoke("Send", message);
+                    $('#message').val('');
+                });
 
-            hubConnection.start();
+                hubConnection.start();
+            }
+            else {
+                document.querySelector(".messanger-container").style.display = "none";
+            }
+            
         </script>
     </div>

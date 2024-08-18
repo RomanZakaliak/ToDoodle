@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Todo.Models;
 using Todo.Services;
+using Todo.Services.Interfaces;
 using Todo.ViewModels;
 
 namespace Todo.Controllers
@@ -16,11 +17,16 @@ namespace Todo.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly INotificationService _notificationService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager,
+            INotificationService notificationService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _notificationService = notificationService;
         }
 
         [HttpGet]
@@ -45,9 +51,8 @@ namespace Todo.Controllers
                     var callbackUrl = Url.Action(
                         "ConfirmEmail", "Account", new { userId = user.Id, code = code},
                         protocol: HttpContext.Request.Scheme);
-                    EmailService emailService = new EmailService();
 
-                    await emailService.SendEmailAsync(regModel.Email, "Confirm your account",
+                    await _notificationService.SendNotificationAsync(regModel.Email, "Confirm your account",
                         $"Confirm your registration <a href='{callbackUrl}'>HERE</a>");
 
                     ViewBag.PopupData = $"Email has been sent to {regModel.Email}.";

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Todo.Models;
 
-namespace Todo.Services
+namespace Todo.Services.Interfaces
 {
     public interface ITodoItemService
     {

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Todo.Data;
 using Todo.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Org.BouncyCastle.Math.EC.Rfc7748;
+using Todo.Services.Interfaces;
 
 namespace Todo.Services
 {
