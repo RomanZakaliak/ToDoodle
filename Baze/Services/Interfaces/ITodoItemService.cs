@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Todo.Models;
+using ToDoodle.Data.Model;
+using ApplicationUser = Todo.Models.ApplicationUser;
 
-namespace Todo.Services
+namespace Todo.Services.Interfaces
 {
     public interface ITodoItemService
     {
@@ -17,5 +19,7 @@ namespace Todo.Services
         Task<bool> MarkDoneAsync(Guid id, ApplicationUser user);
 
         Task<bool> UpdateItemAsync(TodoItem item);
+
+        Task<bool> DeleteItemAsync(TodoItem item);
     }
 }

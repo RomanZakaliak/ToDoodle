@@ -14,6 +14,18 @@
     });
 });
 
+$(document).ready(function () {
+    $(".delete-btn").on('click', function (e) {
+        $("#partial").text("Delete this item?");
+
+        $("#confirm-modal").modal('show');
+
+        $("#btn-confirm").on('click', function () {
+            e.target.closest("form").submit();
+        });
+    });
+});
+
 function markComplete(checkbox) {
     checkbox.disabled = true;
 

@@ -9,6 +9,14 @@
         "jquery.datetimepicker.full.min.js",
         "jquery.datetimepicker.min.css"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "microsoft-signalr@7.0.12",
+      "destination": "wwwroot/lib/microsoft-signalr/",
+      "files": [
+        "signalr.min.js"
+      ]
     }
   ]
 }

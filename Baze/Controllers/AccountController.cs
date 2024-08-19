@@ -8,19 +8,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Todo.Models;
 using Todo.Services;
+using Todo.Services.Interfaces;
 using Todo.ViewModels;
 
 namespace Todo.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly INotificationService _notificationService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager,
+            INotificationService notificationService)
         {
-            _userManager = userManager;
+            userManager = userManager;
             _signInManager = signInManager;
+            _notificationService = notificationService;
         }
 
         [HttpGet]
@@ -34,20 +40,19 @@ namespace Todo.Controllers
         {
             if(ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { Email = regModel.Email, UserName = regModel.Email };
+                ApplicationUser user = new() { Email = regModel.Email, UserName = regModel.Email };
 
-                var result = await _userManager.CreateAsync(user, regModel.Password);
+                var result = await userManager.CreateAsync(user, regModel.Password);
 
                 if(result.Succeeded)
                 {
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var callbackUrl = Url.Action(
-                        "ConfirmEmail", "Account", new { userId = user.Id, code = code},
+                        "ConfirmEmail", "Account", new { userId = user.Id, code},
                         protocol: HttpContext.Request.Scheme);
-                    EmailService emailService = new EmailService();
 
-                    await emailService.SendEmailAsync(regModel.Email, "Confirm your account",
+                    await _notificationService.SendNotificationAsync(regModel.Email, "Confirm your account",
                         $"Confirm your registration <a href='{callbackUrl}'>HERE</a>");
 
                     ViewBag.PopupData = $"Email has been sent to {regModel.Email}.";
@@ -73,13 +78,13 @@ namespace Todo.Controllers
                 return View("Error");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByIdAsync(userId);
             if(user == null)
             {
                 return View("Error");
             }
 
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var result = await userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
                 return View();
             else
@@ -98,10 +103,10 @@ namespace Todo.Controllers
         {
             if(ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email);
+                var user = await userManager.FindByNameAsync(model.Email);
                 if(user != null)
                 {
-                    if(!await _userManager.IsEmailConfirmedAsync(user))
+                    if(!await userManager.IsEmailConfirmedAsync(user))
                     {
                         ModelState.AddModelError(string.Empty, "You do not confirm your email!");
                         return View(model);

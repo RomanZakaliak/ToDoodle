@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Todo.Data;
 using Todo.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Org.BouncyCastle.Math.EC.Rfc7748;
+using Todo.Services.Interfaces;
+
+using ToDoodle.Data.Model;
+using ApplicationUser = Todo.Models.ApplicationUser;
 
 namespace Todo.Services
 {
@@ -60,6 +61,14 @@ namespace Todo.Services
             var saveResult = await _context.SaveChangesAsync();
 
             return saveResult == 1;
+        }
+
+        public async Task<bool> DeleteItemAsync(TodoItem item)
+        {
+            _context.Items.Remove(item);
+            var result = await _context.SaveChangesAsync();
+
+            return result == 1;
         }
     }
 }
