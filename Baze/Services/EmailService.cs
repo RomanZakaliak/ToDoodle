@@ -21,13 +21,11 @@ namespace Todo.Services
                 Text = message
             };
 
-            using(var client = new SmtpClient())
-            {
-                await client.ConnectAsync("localhost", 25, MailKit.Security.SecureSocketOptions.None);
-                await client.SendAsync(emailMessage);
+            using var client = new SmtpClient();
+            await client.ConnectAsync("localhost", 25, MailKit.Security.SecureSocketOptions.None);
+            await client.SendAsync(emailMessage);
 
-                await client.DisconnectAsync(true);
-            }    
+            await client.DisconnectAsync(true);
         }
     }
 }

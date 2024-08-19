@@ -4,19 +4,14 @@ using System.Text;
 using Todo.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
+
+using ToDoodle.Data.Model;
 
 namespace Todo.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<Models.ApplicationUser>(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
-
         public DbSet<TodoItem> Items { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

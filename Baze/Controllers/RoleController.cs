@@ -11,18 +11,9 @@ using Todo.ViewModels;
 namespace Todo.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class RoleController : Controller
+    public class RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager) : Controller
     {
-        readonly RoleManager<IdentityRole> _roleManager;
-        readonly UserManager<ApplicationUser> _userManager;
-
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
-        {
-            _roleManager = roleManager;
-            _userManager = userManager;
-        }
-
-        public IActionResult Index() => View(_roleManager.Roles.ToList());
+        public IActionResult Index() => View(roleManager.Roles.ToList());
 
         public IActionResult Create() => View();
         [HttpPost]
@@ -30,7 +21,7 @@ namespace Todo.Controllers
         {
             if (!string.IsNullOrEmpty(name))
             {
-                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
+                IdentityResult result = await roleManager.CreateAsync(new IdentityRole(name));
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -49,27 +40,27 @@ namespace Todo.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            IdentityRole role = await roleManager.FindByIdAsync(id);
 
             if (role != null)
             {
-                IdentityResult result = await _roleManager.DeleteAsync(role);
+                IdentityResult result = await roleManager.DeleteAsync(role);
             }
             return RedirectToAction("Index");
         }
 
-        public IActionResult UserList() => View(_userManager.Users.ToList());
+        public IActionResult UserList() => View(userManager.Users.ToList());
 
         public async Task<IActionResult> Edit(string UserId)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(UserId);
+            ApplicationUser user = await userManager.FindByIdAsync(UserId);
 
             if(user != null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
+                var userRoles = await userManager.GetRolesAsync(user);
+                var allRoles = roleManager.Roles.ToList();
 
-                ChangeRoleViewModel model = new ChangeRoleViewModel
+                ChangeRoleViewModel model = new()
                 {
                     UserId = user.Id,
                     UserEmail = user.Email,
@@ -84,16 +75,16 @@ namespace Todo.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+            ApplicationUser user = await userManager.FindByIdAsync(userId);
             if(user != null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
+                var userRoles = await userManager.GetRolesAsync(user);
+                var allRoles = roleManager.Roles.ToList();
                 var addedRoles = roles.Except(userRoles);
                 var removedRoles = userRoles.Except(roles);
 
-                await _userManager.AddToRolesAsync(user, addedRoles);
-                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+                await userManager.AddToRolesAsync(user, addedRoles);
+                await userManager.RemoveFromRolesAsync(user, removedRoles);
 
                 return RedirectToAction("UserList");
             }

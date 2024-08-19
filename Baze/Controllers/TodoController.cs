@@ -9,26 +9,20 @@ using Microsoft.AspNetCore.Identity;
 using Todo.Services.Interfaces;
 using Todo.ViewModels;
 
+using ToDoodle.Data.Model;
+using ApplicationUser = Todo.Models.ApplicationUser;
+
 namespace Todo.Controllers
 {
     [Authorize]
-    public class TodoController : Controller
+    public class TodoController(ITodoItemService todoItemService, UserManager<ApplicationUser> userManager) : Controller
     {
-        private readonly ITodoItemService _todoItemService;
-        private readonly UserManager<ApplicationUser> _userManager;
-
-        public TodoController(ITodoItemService todoItemService, 
-            UserManager<ApplicationUser> userManager)
-        {
-            _todoItemService = todoItemService;
-            _userManager = userManager;
-        }
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            var items = await _todoItemService.GetIncompleteItemsAsync(currentUser);
+            var items = await todoItemService.GetIncompleteItemsAsync(currentUser);
 
             var model = new TodoViewModel()
             {
@@ -46,10 +40,10 @@ namespace Todo.Controllers
                 return View();
             }
 
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            var item = await _todoItemService.GetItemAsync(currentUser, id);
+            var item = await todoItemService.GetItemAsync(currentUser, id);
 
             return View(item);
 
@@ -63,21 +57,21 @@ namespace Todo.Controllers
                 return RedirectToAction("Index");
             }
 
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            var existedItem = await _todoItemService.GetItemAsync(currentUser, Item.ID);
+            var existedItem = await todoItemService.GetItemAsync(currentUser, Item.ID);
 
             bool successful = false;
             if (existedItem != null)
             {
                 existedItem.Title = Item.Title;
                 existedItem.DueAt = Item.DueAt;
-                successful = await _todoItemService.UpdateItemAsync(existedItem);
+                successful = await todoItemService.UpdateItemAsync(existedItem);
             }
             else
             {
-                successful = await _todoItemService.AddItemAsync(Item, currentUser);
+                successful = await todoItemService.AddItemAsync(Item, currentUser);
             }
 
             if(!successful)
@@ -97,14 +91,14 @@ namespace Todo.Controllers
                 return RedirectToAction("Index");
             }
 
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            var existedItem = await _todoItemService.GetItemAsync(currentUser, id);
+            var existedItem = await todoItemService.GetItemAsync(currentUser, id);
             
             if(existedItem != null)
             {
-                if (await _todoItemService.DeleteItemAsync(existedItem))
+                if (await todoItemService.DeleteItemAsync(existedItem))
                     return RedirectToAction("Index");
                 else
                     return BadRequest("Cannot delete selected item");
@@ -124,10 +118,10 @@ namespace Todo.Controllers
                 return RedirectToAction("Index");
             }
 
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            var successful = await _todoItemService.MarkDoneAsync(id, currentUser);
+            var successful = await todoItemService.MarkDoneAsync(id, currentUser);
             if (!successful)
             {
                 return BadRequest("Could not mark item as done.");

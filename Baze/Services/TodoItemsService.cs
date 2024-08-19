@@ -6,6 +6,9 @@ using Todo.Models;
 using Microsoft.EntityFrameworkCore;
 using Todo.Services.Interfaces;
 
+using ToDoodle.Data.Model;
+using ApplicationUser = Todo.Models.ApplicationUser;
+
 namespace Todo.Services
 {
     public class TodoItemsService : ITodoItemService
